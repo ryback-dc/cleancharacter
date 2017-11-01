@@ -5,12 +5,7 @@ function cleanse($string, $allowedTags = array())
 		$string = stripslashes($stringIn);
 	}
 	
-	// $string = kses($string, $allowedTags); // For kses {@see http://sourceforge.net/projects/kses/}
-
-	// ============
-	// Remove MS Word Special Characters
-	// ============
-		
+	
         $search  = array('&acirc;€“','&acirc;€œ','&acirc;€˜','&acirc;€™','&Acirc;&pound;','&Acirc;&not;','&acirc;„&cent;');
         $replace = array('-','&ldquo;','&lsquo;','&rsquo;','&pound;','&not;','&#8482;');
         
@@ -53,11 +48,11 @@ function cleanse($string, $allowedTags = array())
 			printf('%s:0x%02x ', $byte, $char);
 		}
 	}
-	
+	 
             $d = mb_convert_encoding($string, 'UTF-8');
             $d = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S','',$d);
             $d = preg_replace('/[^\x00-\x7F]+/S','',$d);
-            
+            $d = preg_replace('/[^A-Za-z0-9\  ]/', '',$d);
             
 	var_dump($d);
 	exit;
